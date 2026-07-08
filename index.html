@@ -85,51 +85,62 @@
         .error { color: #ff4444; }
         .success { color: #44ff44; }
 
-        /* 2. متحف القطعة المصونة */
+        /* 2. متحف العرض ذو البعدين */
         .vault-container {
             display: none;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
-            padding: 40px;
+            padding: 30px;
             box-sizing: border-box;
             animation: fadeIn 1.5s ease-in-out;
         }
 
+        .display-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+        }
+
         @media (min-width: 768px) {
-            .vault-container {
-                display: none;
+            .display-grid {
                 flex-direction: row;
-                align-items: center;
-                gap: 40px;
+                align-items: stretch;
             }
         }
 
-        .preview-box {
+        /* لوحة العمل الفني الغامض */
+        .art-panel {
             flex: 1;
             background: #111111;
             border: 1px solid #222222;
-            height: 400px;
+            height: 450px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            margin-bottom: 20px;
         }
 
-        .design-svg {
-            width: 150px;
-            height: 150px;
-            fill: #c5a059;
-            margin-bottom: 20px;
+        .art-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(30%);
+            transition: transform 0.5s ease;
         }
 
+        /* لوحة التيشيرت والمواصفات */
         .spec-panel {
             flex: 1;
+            background: #111111;
+            border: 1px solid #222222;
+            padding: 35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: right;
+            position: relative;
         }
 
         .serial-number {
@@ -139,23 +150,24 @@
         }
 
         .piece-title {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 300;
             margin: 0 0 20px 0;
+            color: #ffffff;
         }
 
         .description {
             font-size: 15px;
             color: #aaaaaa;
             line-height: 1.8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .tech-details {
             border-top: 1px solid #222222;
             border-bottom: 1px solid #222222;
             padding: 15px 0;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 13px;
             color: #dddddd;
         }
@@ -198,10 +210,12 @@
             justify-content: center;
             align-items: center;
             color: #ff4444;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 2;
         }
 
         @keyframes fadeIn {
@@ -212,6 +226,7 @@
 </head>
 <body>
 
+    <!-- البوابة المقفلة -->
     <div class="gate-container" id="gateSection">
         <div class="logo">الاستوديو الخاص</div>
         <div class="status-text">الوصول مقيد. أدخل رمز الاستوديو لفتح القطع الحصرية.</div>
@@ -220,28 +235,32 @@
         <div id="msg" class="message"></div>
     </div>
 
+    <!-- متحف العرض ذو البعدين المحدث -->
     <div class="vault-container" id="vaultSection">
-        <div class="preview-box">
-            <div style="text-align: center;">
-                <svg class="design-svg" viewBox="0 0 24 24">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                <div style="font-size: 11px; color: #555;">[ معاينة بصرية حصرية ]</div>
+        <div class="display-grid">
+            
+            <!-- اللوحة الأولى: العمل الفني الظلي المدخل -->
+            <div class="art-panel">
+                <img src="https://images2.imgbox.com/f0/2d/8T8L6YfP_o.jpg" alt="Art Piece" class="art-image">
+                <div class="sold-overlay" id="soldOverlay1">ARCHIVED</div>
             </div>
-            <div class="sold-overlay" id="soldOverlay">ARCHIVED / SOLD OUT</div>
-        </div>
 
-        <div class="spec-panel">
-            <div class="serial-number">الرقم التسلسلي: STU-2026-001</div>
-            <h1 class="piece-title">هودي "الشعار الهيكلي الفاخر"</h1>
-            <p class="description">
-                تصميم فريد يجسد ملابس الشارع النخبوية بقصة فضفاضة (Boxy Fit) مصنعة من الأنسجة الثقيلة. الشعار مدمج هندسياً في عمق القماش. تتاح هذه القطعة لمالك واحد فريد للأبد.
-            </p>
-            <div class="tech-details">
-                <div class="tech-row"><span>الفئة:</span> <span>ملابس شارع فاخرة / شعار مستقل</span></div>
-                <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة 1 من 1 متاحة</span></div>
+            <!-- اللوحة الثانية: التيشيرت الفاخر والمواصفات -->
+            <div class="spec-panel">
+                <div class="sold-overlay" id="soldOverlay2">SOLD OUT</div>
+                <div class="serial-number">الرقم التسلسلي: TEE-2026-001</div>
+                <h1 class="piece-title">تيشيرت "الظلال الحصرية"</h1>
+                <p class="description">
+                    تصميم تيشيرت بقصة واسعة ومبتكرة (Oversized Streetwear) مصنوع من أجود أنواع القطن الثقيل الفاخر. يحمل الرسمة الظلية الغامضة مدمجة في النسيج بتباين داكن فريد. تتاح هذه القطعة لمالك واحد فقط، وتُزال تماماً بمجرد اقتنائها.
+                </p>
+                <div class="tech-details">
+                    <div class="tech-row"><span>القصّة / الستايل:</span> <span>فضفاض عريض (Oversized / Dropped Shoulders)</span></div>
+                    <div class="tech-row"><span>النسيج:</span> <span>قطن 100% ثقيل الوزن فاخر</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة 1 من 1 متاحة</span></div>
+                </div>
+                <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء القطعة</button>
             </div>
-            <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء القطعة</button>
+
         </div>
     </div>
 
@@ -255,8 +274,7 @@
                 msg.innerHTML = "<span class='success'>تم منح الوصول. جارٍ النقل...</span>";
                 setTimeout(() => {
                     document.getElementById('gateSection').style.display = 'none';
-                    const vault = document.getElementById('vaultSection');
-                    vault.style.display = window.innerWidth >= 768 ? 'flex' : 'block';
+                    document.getElementById('vaultSection').style.display = 'block';
                 }, 1200);
             } else {
                 msg.innerHTML = "<span class='error'>الرمز غير صحيح.</span>";
@@ -268,13 +286,14 @@
             const contactInfo = prompt("يرجى تزويدنا برقم الواتساب أو حساب انستغرام الخاص ببراندك للتواصل الفوري الفاخر لإتمام الطلب:");
             
             if (contactInfo !== null && contactInfo.trim() !== "") {
-                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين القطعة.");
+                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين القطعة وإزالتها.");
                 
-                // إغلاق القطعة فوراً ومحاكاة إزالتها
+                // تفعيل طبقة الإغلاق الفوري وحجب التصميم
                 document.getElementById('buyBtn').innerText = "SOLD OUT";
                 document.getElementById('buyBtn').classList.add('sold-out');
-                document.getElementById('soldOverlay').style.opacity = "1";
-                document.getElementById('availabilityStatus').innerText = "غير متوفرة";
+                document.getElementById('soldOverlay1').style.opacity = "1";
+                document.getElementById('soldOverlay2').style.opacity = "1";
+                document.getElementById('availabilityStatus').innerText = "غير متوفرة (مؤرشفة)";
                 document.getElementById('availabilityStatus').style.color = "#ff4444";
             }
         }
