@@ -15,12 +15,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            letter-spacing: 2px;
+            min-height: 100vh;
+            letter-spacing: 1px;
+            overflow-x: hidden;
         }
 
-        /* حاوية البوابة الغامضة */
+        /* 1. تنسيق واجهة البوابة المقفلة */
         .gate-container {
             text-align: center;
             max-width: 450px;
@@ -34,7 +34,6 @@
             font-size: 24px;
             font-weight: 300;
             margin-bottom: 50px;
-            color: #ffffff;
             text-transform: uppercase;
         }
 
@@ -43,21 +42,21 @@
             color: #888888;
             margin-bottom: 20px;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        /* حقل إدخال الرمز السري */
         .code-input {
             width: 100%;
             padding: 15px;
             background: transparent;
             border: none;
             border-bottom: 1px solid #333333;
-            color: #c5a059; /* ذهبي مطفي */
+            color: #c5a059;
             font-size: 16px;
             text-align: center;
             outline: none;
             text-transform: uppercase;
-            transition: border-color 0.4s, cubic-bezier(0.4, 0, 0.2, 1);
+            transition: border-color 0.4s;
             letter-spacing: 6px;
         }
 
@@ -65,7 +64,6 @@
             border-color: #c5a059;
         }
 
-        /* زر الدخول */
         .unlock-btn {
             margin-top: 30px;
             background: transparent;
@@ -76,6 +74,7 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.3s ease;
+            letter-spacing: 2px;
         }
 
         .unlock-btn:hover {
@@ -84,7 +83,6 @@
             box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
         }
 
-        /* رسائل النظام */
         .message {
             margin-top: 20px;
             font-size: 11px;
@@ -94,45 +92,187 @@
         .error { color: #ff4444; }
         .success { color: #44ff44; }
 
+        /* 2. تنسيق متحف القطعة المصونة (مخفي في البداية) */
+        .vault-container {
+            display: none; /* مخفي حتى يتم إدخال الكود */
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @media (min-width: 768px) {
+            .vault-container {
+                display: none;
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+            }
+        }
+
+        .preview-box {
+            flex: 1;
+            background: #111111;
+            border: 1px solid #222222;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .design-svg {
+            width: 150px;
+            height: 150px;
+            fill: #c5a059;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .spec-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .serial-number {
+            font-size: 12px;
+            color: #c5a059;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .piece-title {
+            font-size: 28px;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin: 0 0 20px 0;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #888888;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .tech-details {
+            border-top: 1px solid #222222;
+            border-bottom: 1px solid #222222;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            font-size: 12px;
+            color: #aaaaaa;
+            text-transform: uppercase;
+        }
+
+        .tech-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .acquire-btn {
+            background: #c5a059;
+            color: #0a0a0a;
+            border: none;
+            padding: 15px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .acquire-btn:hover {
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+
+        .sold-out {
+            background: #222222 !important;
+            color: #555555 !important;
+            cursor: not-allowed !important;
+            text-decoration: line-through;
+        }
+
+        .sold-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff4444;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="gate-container">
+    <div class="gate-container" id="gateSection">
         <div class="logo">The Private Studio</div>
         <div class="status-text">Access Restricted. Enter Studio Code to Unlock Pieces.</div>
-        
         <input type="password" id="studioCode" class="code-input" placeholder="••••••••" autocomplete="off">
-        
         <button class="unlock-btn" onclick="verifyAccess()">Unlock</button>
-        
         <div id="msg" class="message"></div>
     </div>
 
+    <div class="vault-container" id="vaultSection">
+        <div class="preview-box">
+            <div style="text-align: center;">
+                <svg class="design-svg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <div style="font-size: 11px; color: #555;">[ VISUAL PREVIEW ]</div>
+            </div>
+            <div class="sold-overlay" id="soldOverlay">SOLD & VAULTED</div>
+        </div>
+
+        <div class="spec-panel">
+            <div class="serial-number">STU-2026-001</div>
+            <h1 class="piece-title">The Boxy Emblem</h1>
+            <p class="description">
+                A premium heavy-weight boxy fit silhouette. Features a minimal architectural logo integrated into the core fabrics. Purchasing this grants full global intellectual property rights. One unique owner forever.
+            </p>
+            <div class="tech-details">
+                <div class="tech-row"><span>Category:</span> <span>Streetwear / Logo</span></div>
+                <div class="tech-row"><span>Availability:</span> <span id="availabilityStatus" style="color: #44ff44;">1 OF 1 AVAILABLE</span></div>
+                <div class="tech-row"><span>Rights:</span> <span>Full Commercial Ownership</span></div>
+            </div>
+            <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">Acquire Exclusive Rights</button>
+        </div>
+    </div>
+
     <script>
-        // دالة التحقق من الرمز الرقمي للدخول
+        // الدالة المسؤولة عن فتح البوابة
         function verifyAccess() {
             const codeInput = document.getElementById('studioCode').value.trim();
             const msg = document.getElementById('msg');
-            
-            // يمكنك تغيير الرمز الافتراضي هنا أو ربطه بـ API لاحقاً
-            const masterKey = "STUDIO2026"; 
-
-            if (codeInput === "") {
-                msg.innerHTML = "<span class='error'>Please enter an access key.</span>";
-                return;
-            }
+            const masterKey = "STUDIO2026"; // الكود السري الخاص بك
 
             if (codeInput.toUpperCase() === masterKey) {
-                msg.innerHTML = "<span class='success'>Access Granted. Transferring to Vault...</span>";
-                // هنا يتم توجيه العميل لداخل الاستوديو أو لوحة العرض
+                msg.innerHTML = "<span class='success'>Access Granted. Unlocking Vault...</span>";
                 setTimeout(() => {
-                    alert('مرحباً بك في الخزنة الرقمية الحصرية!');
-                    // window.location.href = "/vault.html"; 
+                    // إخفاء البوابة وإظهار المتحف فورا في نفس الصفحة
+                    document.getElementById('gateSection').style.display = 'none';
+                    const vault = document.getElementById('vaultSection');
+                    vault.style.display = window.innerWidth >= 768 ? 'flex' : 'block';
                 }, 1000);
             } else {
                 msg.innerHTML = "<span class='error'>Invalid Key. Access Denied.</span>";
@@ -140,11 +280,20 @@
             }
         }
 
-        // تفعيل زر Enter للإدخال السريع
-        document.getElementById('studioCode').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                verifyAccess();
+        // دالة الشراء الفوري داخل المتحف
+        function acquireDesign() {
+            if(confirm("Are you sure you want to acquire this piece? It will be permanently removed from the public market.")) {
+                document.getElementById('buyBtn').innerText = "SOLD TO OWNER 001";
+                document.getElementById('buyBtn').classList.add('sold-out');
+                document.getElementById('soldOverlay').style.opacity = "1";
+                document.getElementById('availabilityStatus').innerText = "ARCHIVED IN VAULT";
+                document.getElementById('availabilityStatus').style.color = "#ff4444";
             }
+        }
+
+        // تفعيل زر Enter للإدخال السريع بالجوال
+        document.getElementById('studioCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') { verifyAccess(); }
         });
     </script>
 
