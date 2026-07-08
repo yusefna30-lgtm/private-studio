@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الاستوديو الخاص | THE PRIVATE STUDIO</title>
     <style>
-        /* التنسيق العام وفخامة الألوان */
         body {
             margin: 0;
             padding: 0;
@@ -20,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /* 1. تنسيق واجهة البوابة المقفلة */
+        /* 1. البوابة المقفلة */
         .gate-container {
             text-align: center;
             max-width: 450px;
@@ -34,7 +33,6 @@
             font-size: 26px;
             font-weight: 300;
             margin-bottom: 50px;
-            text-transform: uppercase;
             color: #ffffff;
         }
 
@@ -87,9 +85,9 @@
         .error { color: #ff4444; }
         .success { color: #44ff44; }
 
-        /* 2. تنسيق متحف القطعة المصونة */
+        /* 2. متحف القطعة المصونة */
         .vault-container {
-            display: none; /* مخفي حتى يتم إدخال الكود */
+            display: none;
             max-width: 900px;
             width: 100%;
             padding: 40px;
@@ -124,7 +122,6 @@
             height: 150px;
             fill: #c5a059;
             margin-bottom: 20px;
-            transition: transform 0.5s ease;
         }
 
         .spec-panel {
@@ -145,7 +142,6 @@
             font-size: 30px;
             font-weight: 300;
             margin: 0 0 20px 0;
-            color: #ffffff;
         }
 
         .description {
@@ -204,7 +200,6 @@
             color: #ff4444;
             font-size: 22px;
             font-weight: bold;
-            letter-spacing: 2px;
             opacity: 0;
             transition: opacity 0.5s ease;
         }
@@ -233,63 +228,57 @@
                 </svg>
                 <div style="font-size: 11px; color: #555;">[ معاينة بصرية حصرية ]</div>
             </div>
-            <div class="sold-overlay" id="soldOverlay">تم الاقتناء وحفظه في الخزنة</div>
+            <div class="sold-overlay" id="soldOverlay">ARCHIVED / SOLD OUT</div>
         </div>
 
         <div class="spec-panel">
             <div class="serial-number">الرقم التسلسلي: STU-2026-001</div>
             <h1 class="piece-title">هودي "الشعار الهيكلي الفاخر"</h1>
             <p class="description">
-                تصميم فريد من نوعه يجسد قصة ملابس الشارع النخبوية بقصة فضفاضة (Boxy Fit) مصنعة من أثمن الأنسجة الثقيلة. الشعار مدمج هندسياً في عمق القماش. اقتناء هذه القطعة يمنحك كامل حقوق الملكية الفكرية والتجارية حول العالم. مالك واحد فريد للأبد.
+                تصميم فريد يجسد ملابس الشارع النخبوية بقصة فضفاضة (Boxy Fit) مصنعة من الأنسجة الثقيلة. الشعار مدمج هندسياً في عمق القماش. تتاح هذه القطعة لمالك واحد فريد للأبد.
             </p>
             <div class="tech-details">
                 <div class="tech-row"><span>الفئة:</span> <span>ملابس شارع فاخرة / شعار مستقل</span></div>
-                <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة 1 من 1 متاحة فقط</span></div>
-                <div class="tech-row"><span>الحقوق المحفوظة:</span> <span>ملكية تجارية وفكرية مطلقة</span></div>
+                <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة 1 من 1 متاحة</span></div>
             </div>
-            <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">اقتناء الحقوق الحصرية للقطعة</button>
+            <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء القطعة</button>
         </div>
     </div>
 
     <script>
-        // الدالة المسؤولة عن فتح البوابة
         function verifyAccess() {
             const codeInput = document.getElementById('studioCode').value.trim();
             const msg = document.getElementById('msg');
             const masterKey = "STUDIO2026"; 
 
             if (codeInput.toUpperCase() === masterKey) {
-                msg.innerHTML = "<span class='success'>تم منح الوصول. جارٍ النقل إلى الخزنة الفاخرة...</span>";
+                msg.innerHTML = "<span class='success'>تم منح الوصول. جارٍ النقل...</span>";
                 setTimeout(() => {
                     document.getElementById('gateSection').style.display = 'none';
                     const vault = document.getElementById('vaultSection');
                     vault.style.display = window.innerWidth >= 768 ? 'flex' : 'block';
                 }, 1200);
             } else {
-                msg.innerHTML = "<span class='error'>الرمز غير صحيح. تم رفض طلب العبور.</span>";
+                msg.innerHTML = "<span class='error'>الرمز غير صحيح.</span>";
                 document.getElementById('studioCode').value = "";
             }
         }
 
-        // دالة طلب التثبيت لوسائل التواصل الفوري عند الضغط على اقتناء
         function acquireDesign() {
-            const contactInfo = prompt("لتثبيت ملكيتك الفكرية الحصرية للقطعة، يرجى إدخال رقم الواتساب الخاص بك أو حساب انستغرام للبراند:");
+            const contactInfo = prompt("يرجى تزويدنا برقم الواتساب أو حساب انستغرام الخاص ببراندك للتواصل الفوري الفاخر لإتمام الطلب:");
             
             if (contactInfo !== null && contactInfo.trim() !== "") {
-                alert("شكراً لك. تم إرسال طلبك بنجاح، وسيتم التواصل معك فوراً عبر: " + contactInfo + " لإتمام نقل الصكوك الملكية الفكرية.");
+                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين القطعة.");
                 
-                // إغلاق القطعة فوراً ومنع أي شخص آخر من رؤيتها متاحة
-                document.getElementById('buyBtn').innerText = "بيعت للمالك الحصري رقم 001";
+                // إغلاق القطعة فوراً ومحاكاة إزالتها
+                document.getElementById('buyBtn').innerText = "SOLD OUT";
                 document.getElementById('buyBtn').classList.add('sold-out');
                 document.getElementById('soldOverlay').style.opacity = "1";
-                document.getElementById('availabilityStatus').innerText = "مؤرشفة ومحمية بالخزنة";
+                document.getElementById('availabilityStatus').innerText = "غير متوفرة";
                 document.getElementById('availabilityStatus').style.color = "#ff4444";
-            } else if (contactInfo !== null) {
-                alert("يرجى تزويدنا ببيانات اتصال صحيحة لتأمين حقوق القطعة.");
             }
         }
 
-        // تفعيل زر Enter للإدخال السريع بالجوال
         document.getElementById('studioCode').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') { verifyAccess(); }
         });
