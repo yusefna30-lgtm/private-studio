@@ -199,34 +199,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
+            text-decoration: none;
         }
 
         .acquire-btn:hover {
             background: #ffffff;
             box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
-        }
-
-        .sold-out {
-            background: #222222 !important;
-            color: #555555 !important;
-            cursor: not-allowed !important;
-            text-decoration: line-through;
-        }
-
-        .sold-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ff4444;
-            font-size: 24px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-            z-index: 2;
         }
 
         @keyframes fadeIn {
@@ -251,10 +229,8 @@
         <div class="art-item">
             <div class="art-panel">
                 <img src="design.jpg" alt="الظلال الحصرية" class="art-image">
-                <div class="sold-overlay" id="soldOverlay1_A">ARCHIVED</div>
             </div>
             <div class="spec-panel">
-                <div class="sold-overlay" id="soldOverlay1_B">SOLD OUT</div>
                 <div class="serial-number">الرقم التسلسلي: ART-2026-001</div>
                 <h1 class="piece-title">مفهوم "الظلال الحصرية"</h1>
                 <p class="description">
@@ -264,19 +240,17 @@
                     <div class="tech-row"><span>نوع العمل:</span> <span>تصميم جرافيك مستقل / شعار مفاهيمي</span></div>
                     <div class="tech-row"><span>الاستخدام المقترح:</span> <span>مثالي للتيشرتات والهوديز الفضفاضة (Oversized)</span></div>
                     <div class="tech-row"><span>صيغة الملف الأصلية:</span> <span>ملف مفتوح عالي الدقة (Vector / Source File)</span></div>
-                    <div class="tech-row"><span>التوفر:</span> <span id="status1" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
                 </div>
-                <button class="acquire-btn" id="buyBtn1" onclick="acquireDesign(1)">طلب اقتناء التصميم</button>
+                <button class="acquire-btn" onclick="redirectToWhatsApp('الظلال الحصرية', 'ART-2026-001')">طلب اقتناء التصميم</button>
             </div>
         </div>
 
         <div class="art-item">
             <div class="art-panel">
                 <img src="samt.jpg" alt="الصمت التجريدي" class="art-image">
-                <div class="sold-overlay" id="soldOverlay2_A">ARCHIVED</div>
             </div>
             <div class="spec-panel">
-                <div class="sold-overlay" id="soldOverlay2_B">SOLD OUT</div>
                 <div class="serial-number">الرقم التسلسلي: ART-2026-002</div>
                 <h1 class="piece-title">مفهوم "الصمت التجريدي"</h1>
                 <p class="description">
@@ -286,9 +260,9 @@
                     <div class="tech-row"><span>نوع العمل:</span> <span>لوحة رقمية تجريدية / Graphic Concept</span></div>
                     <div class="tech-row"><span>الاستخدام المقترح:</span> <span>طباعة خلفية كاملة للتيشرتات والقطع الحصرية</span></div>
                     <div class="tech-row"><span>صيغة الملف الأصلية:</span> <span>ملف عالي الدقة طبقات مفككة (PSD / RAW)</span></div>
-                    <div class="tech-row"><span>التوفر:</span> <span id="status2" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
                 </div>
-                <button class="acquire-btn" id="buyBtn2" onclick="acquireDesign(2)">طلب اقتناء التصميم</button>
+                <button class="acquire-btn" onclick="redirectToWhatsApp('الصمت التجريدي', 'ART-2026-002')">طلب اقتناء التصميم</button>
             </div>
         </div>
 
@@ -312,19 +286,12 @@
             }
         }
 
-        function acquireDesign(itemNumber) {
-            const contactInfo = prompt("يرجى تزويدنا برقم الواتساب أو حساب انستغرام الخاص ببراندك للتواصل الفوري الفاخر لإتمام الطلب:");
-            
-            if (contactInfo !== null && contactInfo.trim() !== "") {
-                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين التصميم وإزالته من المعرض.");
-                
-                document.getElementById('buyBtn' + itemNumber).innerText = "SOLD OUT";
-                document.getElementById('buyBtn' + itemNumber).classList.add('sold-out');
-                document.getElementById('soldOverlay' + itemNumber + '_A').style.opacity = "1";
-                document.getElementById('soldOverlay' + itemNumber + '_B').style.opacity = "1";
-                document.getElementById('status' + itemNumber).innerText = "غير متوفرة (مؤرشفة)";
-                document.getElementById('status' + itemNumber).style.color = "#ff4444";
-            }
+        function redirectToWhatsApp(designName, serialNumber) {
+            const phoneNumber = "9665605664719";
+            const text = `مرحباً، أود طلب اقتناء المفهوم الفني الخاص بـ "${designName}" ذو الرقم التسلسلي: ${serialNumber} من الاستوديو الخاص بك.`;
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         document.getElementById('studioCode').addEventListener('keypress', function(e) {
