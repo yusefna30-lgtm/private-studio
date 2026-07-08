@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE VAULT - PIECE 001</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            letter-spacing: 1px;
+        }
+
+        .vault-container {
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @media (min-width: 768px) {
+            .vault-container {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        /* استوديو عرض القطعة البصري */
+        .preview-box {
+            flex: 1;
+            background: #111111;
+            border: 1px solid #222222;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-placeholder {
+            text-align: center;
+        }
+
+        .design-svg {
+            width: 150px;
+            height: 150px;
+            fill: #c5a059;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .preview-box:hover .design-svg {
+            transform: scale(1.05);
+        }
+
+        /* لوحة المواصفات الفنية */
+        .spec-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .serial-number {
+            font-size: 12px;
+            color: #c5a059;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .piece-title {
+            font-size: 28px;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin: 0 0 20px 0;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #888888;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .tech-details {
+            border-top: 1px solid #222222;
+            border-bottom: 1px solid #222222;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            font-size: 12px;
+            color: #aaaaaa;
+            text-transform: uppercase;
+        }
+
+        .tech-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        /* زر الشراء الفوري والحصري */
+        .acquire-btn {
+            background: #c5a059;
+            color: #0a0a0a;
+            border: none;
+            padding: 15px;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .acquire-btn:hover {
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+
+        /* حالة البيع والإغلاق */
+        .sold-out {
+            background: #222222 !important;
+            color: #555555 !important;
+            cursor: not-allowed !important;
+            text-decoration: line-through;
+        }
+
+        .sold-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff4444;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vault-container">
+        <div class="preview-box">
+            <div class="design-placeholder" id="artPiece">
+                <svg class="design-svg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <div style="font-size: 11px; color: #555;">[ VISUAL PREVIEW ]</div>
+            </div>
+            <div class="sold-overlay" id="soldOverlay">SOLD & VAULTED</div>
+        </div>
+
+        <div class="spec-panel">
+            <div class="serial-number">STU-2026-001</div>
+            <h1 class="piece-title">The Boxy Emblem</h1>
+            
+            <p class="description">
+                A premium heavy-weight boxy fit silhouette. Features a minimal architectural logo integrated into the core fabrics. Purchasing this grants full global intellectual property rights. One unique owner forever.
+            </p>
+
+            <div class="tech-details">
+                <div class="tech-row"><span>Category:</span> <span>Streetwear / Logo</span></div>
+                <div class="tech-row"><span>Availability:</span> <span id="availabilityStatus" style="color: #44ff44;">1 OF 1 AVAILABLE</span></div>
+                <div class="tech-row"><span>Rights:</span> <span>Full Commercial Ownership</span></div>
+            </div>
+
+            <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">Acquire Exclusive Rights</button>
+        </div>
+    </div>
+
+    <script>
+        function acquireDesign() {
+            if(confirm("Are you sure you want to acquire this piece? It will be permanently removed from the public market.")) {
+                // محاكاة عملية البيع الفوري والإغلاق الأبدي للتصميم
+                document.getElementById('buyBtn').innerText = "SOLD TO OWNER 001";
+                document.getElementById('buyBtn').classList.add('sold-out');
+                document.getElementById('soldOverlay').style.opacity = "1";
+                document.getElementById('availabilityStatus').innerText = "ARCHIVED IN VAULT";
+                document.getElementById('availabilityStatus').style.color = "#ff4444";
+            }
+        }
+    </script>
+</body>
+</html>
