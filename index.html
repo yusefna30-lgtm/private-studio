@@ -235,17 +235,17 @@
         <div id="msg" class="message"></div>
     </div>
 
-    <!-- متحف العرض ذو البعدين المحدث -->
+    <!-- متحف العرض المحدث بالصورة المحلية -->
     <div class="vault-container" id="vaultSection">
         <div class="display-grid">
             
-            <!-- اللوحة الأولى: العمل الفني الظلي المدخل -->
+            <!-- اللوحة الأولى: ارتباط مباشر بالملف المرفوع في مستودعك -->
             <div class="art-panel">
-                <img src="https://images2.imgbox.com/f0/2d/8T8L6YfP_o.jpg" alt="Art Piece" class="art-image">
+                <img src="تصميم.jpg" alt="Art Piece" class="art-image">
                 <div class="sold-overlay" id="soldOverlay1">ARCHIVED</div>
             </div>
 
-            <!-- اللوحة الثانية: التيشيرت الفاخر والمواصفات -->
+            <!-- اللوحة الثانية: مواصفات التيشيرت النخبوية -->
             <div class="spec-panel">
                 <div class="sold-overlay" id="soldOverlay2">SOLD OUT</div>
                 <div class="serial-number">الرقم التسلسلي: TEE-2026-001</div>
@@ -288,7 +288,6 @@
             if (contactInfo !== null && contactInfo.trim() !== "") {
                 alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين القطعة وإزالتها.");
                 
-                // تفعيل طبقة الإغلاق الفوري وحجب التصميم
                 document.getElementById('buyBtn').innerText = "SOLD OUT";
                 document.getElementById('buyBtn').classList.add('sold-out');
                 document.getElementById('soldOverlay1').style.opacity = "1";
