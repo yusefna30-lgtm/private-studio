@@ -85,31 +85,43 @@
         .error { color: #ff4444; }
         .success { color: #44ff44; }
 
-        /* 2. متحف العرض ذو البعدين */
+        /* 2. متحف العرض الرقمي المتعدد */
         .vault-container {
             display: none;
             max-width: 950px;
             width: 100%;
-            padding: 30px;
+            padding: 20px;
             box-sizing: border-box;
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        .display-grid {
+        .gallery-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #c5a059;
+            letter-spacing: 2px;
+        }
+
+        .art-item {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
             width: 100%;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 40px;
         }
 
         @media (min-width: 768px) {
-            .display-grid {
+            .art-item {
                 flex-direction: row;
                 align-items: stretch;
             }
         }
 
-        /* لوحة العمل الفني الغامض */
+        /* لوحة العمل الفني */
         .art-panel {
             flex: 1;
             background: #111111;
@@ -126,11 +138,10 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: grayscale(10%);
             transition: transform 0.5s ease;
         }
 
-        /* لوحة التصميم والمواصفات الفنية */
+        /* لوحة التفاصيل والمواصفات الفنية */
         .spec-panel {
             flex: 1;
             background: #111111;
@@ -150,7 +161,7 @@
         }
 
         .piece-title {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 300;
             margin: 0 0 20px 0;
             color: #ffffff;
@@ -235,30 +246,52 @@
     </div>
 
     <div class="vault-container" id="vaultSection">
-        <div class="display-grid">
-            
+        <div class="gallery-title">المفاهيم الفنية المتاحة للاقتناء</div>
+        
+        <div class="art-item">
             <div class="art-panel">
-                <img src="design.jpg" alt="Art Piece" class="art-image">
-                <div class="sold-overlay" id="soldOverlay1">ARCHIVED</div>
+                <img src="design.jpg" alt="الظلال الحصرية" class="art-image">
+                <div class="sold-overlay" id="soldOverlay1_A">ARCHIVED</div>
             </div>
-
             <div class="spec-panel">
-                <div class="sold-overlay" id="soldOverlay2">SOLD OUT</div>
+                <div class="sold-overlay" id="soldOverlay1_B">SOLD OUT</div>
                 <div class="serial-number">الرقم التسلسلي: ART-2026-001</div>
                 <h1 class="piece-title">مفهوم "الظلال الحصرية"</h1>
                 <p class="description">
-                    عمل فني مفاهيمي مصمم بدقة ليجسد روح الغموض والتباين الحاد في ثقافة ملابس الشارع (Streetwear). يعتمد التصميم على التدرج الضبابي للظلال والهيكل الحاد ليعطي طابعاً قوياً فريداً عند طباعته أو تطريزه. متاح لجهة واحدة فقط، ويُسحب تماماً من العرض فور اقتنائه.
+                    عمل فني مفاهيمي مصمم بدقة ليجسد روح الغموض والتباين الحاد في ثقافة ملابس الشارع (Streetwear). يعتمد التصميم على التدرج الضبابي للظلال والهيكل الحاد ليعطي طابعاً قوياً فريداً عند طباعته أو تطريزه. متاح لجهة واحدة فقط.
                 </p>
                 <div class="tech-details">
                     <div class="tech-row"><span>نوع العمل:</span> <span>تصميم جرافيك مستقل / شعار مفاهيمي</span></div>
                     <div class="tech-row"><span>الاستخدام المقترح:</span> <span>مثالي للتيشرتات والهوديز الفضفاضة (Oversized)</span></div>
                     <div class="tech-row"><span>صيغة الملف الأصلية:</span> <span>ملف مفتوح عالي الدقة (Vector / Source File)</span></div>
-                    <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span id="status1" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
                 </div>
-                <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء التصميم</button>
+                <button class="acquire-btn" id="buyBtn1" onclick="acquireDesign(1)">طلب اقتناء التصميم</button>
             </div>
-
         </div>
+
+        <div class="art-item">
+            <div class="art-panel">
+                <img src="samt.jpg" alt="الصمت التجريدي" class="art-image">
+                <div class="sold-overlay" id="soldOverlay2_A">ARCHIVED</div>
+            </div>
+            <div class="spec-panel">
+                <div class="sold-overlay" id="soldOverlay2_B">SOLD OUT</div>
+                <div class="serial-number">الرقم التسلسلي: ART-2026-002</div>
+                <h1 class="piece-title">مفهوم "الصمت التجريدي"</h1>
+                <p class="description">
+                    لوحة بصرية مذهلة تعتمد على ضربات الفرشاة التجريدية البيضاء لإنشاء هيكل إنساني ساكن فوق كرسي. يجسد التصميم مفاهيم العزلة، التأمل، والتلاشي الفني، وهو مصمم ليمنح خطوط ملابس الشارع طابعاً فلسفياً ونخبوياً معقداً.
+                </p>
+                <div class="tech-details">
+                    <div class="tech-row"><span>نوع العمل:</span> <span>لوحة رقمية تجريدية / Graphic Concept</span></div>
+                    <div class="tech-row"><span>الاستخدام المقترح:</span> <span>طباعة خلفية كاملة للتيشرتات والقطع الحصرية</span></div>
+                    <div class="tech-row"><span>صيغة الملف الأصلية:</span> <span>ملف عالي الدقة طبقات مفككة (PSD / RAW)</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span id="status2" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
+                </div>
+                <button class="acquire-btn" id="buyBtn2" onclick="acquireDesign(2)">طلب اقتناء التصميم</button>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -279,18 +312,18 @@
             }
         }
 
-        function acquireDesign() {
+        function acquireDesign(itemNumber) {
             const contactInfo = prompt("يرجى تزويدنا برقم الواتساب أو حساب انستغرام الخاص ببراندك للتواصل الفوري الفاخر لإتمام الطلب:");
             
             if (contactInfo !== null && contactInfo.trim() !== "") {
-                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين التصميم وإزالته.");
+                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين التصميم وإزالته من المعرض.");
                 
-                document.getElementById('buyBtn').innerText = "SOLD OUT";
-                document.getElementById('buyBtn').classList.add('sold-out');
-                document.getElementById('soldOverlay1').style.opacity = "1";
-                document.getElementById('soldOverlay2').style.opacity = "1";
-                document.getElementById('availabilityStatus').innerText = "غير متوفرة (مؤرشفة)";
-                document.getElementById('availabilityStatus').style.color = "#ff4444";
+                document.getElementById('buyBtn' + itemNumber).innerText = "SOLD OUT";
+                document.getElementById('buyBtn' + itemNumber).classList.add('sold-out');
+                document.getElementById('soldOverlay' + itemNumber + '_A').style.opacity = "1";
+                document.getElementById('soldOverlay' + itemNumber + '_B').style.opacity = "1";
+                document.getElementById('status' + itemNumber).innerText = "غير متوفرة (مؤرشفة)";
+                document.getElementById('status' + itemNumber).style.color = "#ff4444";
             }
         }
 
