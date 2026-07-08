@@ -126,11 +126,11 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: grayscale(30%);
+            filter: grayscale(10%);
             transition: transform 0.5s ease;
         }
 
-        /* لوحة التيشيرت والمواصفات */
+        /* لوحة التصميم والمواصفات الفنية */
         .spec-panel {
             flex: 1;
             background: #111111;
@@ -244,17 +244,18 @@
 
             <div class="spec-panel">
                 <div class="sold-overlay" id="soldOverlay2">SOLD OUT</div>
-                <div class="serial-number">الرقم التسلسلي: TEE-2026-001</div>
-                <h1 class="piece-title">تيشيرت "الظلال الحصرية"</h1>
+                <div class="serial-number">الرقم التسلسلي: ART-2026-001</div>
+                <h1 class="piece-title">مفهوم "الظلال الحصرية"</h1>
                 <p class="description">
-                    تصميم تيشيرت بقصة واسعة ومبتكرة (Oversized Streetwear) مصنوع من أجود أنواع القطن الثقيل الفاخر. يحمل الرسمة الظلية الغامضة مدمجة في النسيج بتباين داكن فريد. تتاح هذه القطعة لمالك واحد فقط، وتُزال تماماً بمجرد اقتنائها.
+                    عمل فني مفاهيمي مصمم بدقة ليجسد روح الغموض والتباين الحاد في ثقافة ملابس الشارع (Streetwear). يعتمد التصميم على التدرج الضبابي للظلال والهيكل الحاد ليعطي طابعاً قوياً فريداً عند طباعته أو تطريزه. متاح لجهة واحدة فقط، ويُسحب تماماً من العرض فور اقتنائه.
                 </p>
                 <div class="tech-details">
-                    <div class="tech-row"><span>القصّة / الستايل:</span> <span>فضفاض عريض (Oversized / Dropped Shoulders)</span></div>
-                    <div class="tech-row"><span>النسيج:</span> <span>قطن 100% ثقيل الوزن فاخر</span></div>
-                    <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة 1 من 1 متاحة</span></div>
+                    <div class="tech-row"><span>نوع العمل:</span> <span>تصميم جرافيك مستقل / شعار مفاهيمي</span></div>
+                    <div class="tech-row"><span>الاستخدام المقترح:</span> <span>مثالي للتيشرتات والهوديز الفضفاضة (Oversized)</span></div>
+                    <div class="tech-row"><span>صيغة الملف الأصلية:</span> <span>ملف مفتوح عالي الدقة (Vector / Source File)</span></div>
+                    <div class="tech-row"><span>التوفر:</span> <span id="availabilityStatus" style="color: #44ff44;">نسخة فريدة 1 من 1 متاحة</span></div>
                 </div>
-                <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء القطعة</button>
+                <button class="acquire-btn" id="buyBtn" onclick="acquireDesign()">طلب اقتناء التصميم</button>
             </div>
 
         </div>
@@ -282,7 +283,7 @@
             const contactInfo = prompt("يرجى تزويدنا برقم الواتساب أو حساب انستغرام الخاص ببراندك للتواصل الفوري الفاخر لإتمام الطلب:");
             
             if (contactInfo !== null && contactInfo.trim() !== "") {
-                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين القطعة وإزالتها.");
+                alert("شكراً لك. سيتم التواصل معك مباشرة لتأمين التصميم وإزالته.");
                 
                 document.getElementById('buyBtn').innerText = "SOLD OUT";
                 document.getElementById('buyBtn').classList.add('sold-out');
