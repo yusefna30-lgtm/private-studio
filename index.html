@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE PRIVATE STUDIO</title>
+    <style>
+        /* التنسيق العام وفخامة الألوان */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            letter-spacing: 2px;
+        }
+
+        /* حاوية البوابة الغامضة */
+        .gate-container {
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 50px;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .status-text {
+            font-size: 11px;
+            color: #888888;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* حقل إدخال الرمز السري */
+        .code-input {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333333;
+            color: #c5a059; /* ذهبي مطفي */
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            text-transform: uppercase;
+            transition: border-color 0.4s, cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 6px;
+        }
+
+        .code-input:focus {
+            border-color: #c5a059;
+        }
+
+        /* زر الدخول */
+        .unlock-btn {
+            margin-top: 30px;
+            background: transparent;
+            border: 1px solid #c5a059;
+            color: #c5a059;
+            padding: 12px 35px;
+            font-size: 12px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .unlock-btn:hover {
+            background: #c5a059;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+
+        /* رسائل النظام */
+        .message {
+            margin-top: 20px;
+            font-size: 11px;
+            min-height: 15px;
+            text-transform: uppercase;
+        }
+        .error { color: #ff4444; }
+        .success { color: #44ff44; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gate-container">
+        <div class="logo">The Private Studio</div>
+        <div class="status-text">Access Restricted. Enter Studio Code to Unlock Pieces.</div>
+        
+        <input type="password" id="studioCode" class="code-input" placeholder="••••••••" autocomplete="off">
+        
+        <button class="unlock-btn" onclick="verifyAccess()">Unlock</button>
+        
+        <div id="msg" class="message"></div>
+    </div>
+
+    <script>
+        // دالة التحقق من الرمز الرقمي للدخول
+        function verifyAccess() {
+            const codeInput = document.getElementById('studioCode').value.trim();
+            const msg = document.getElementById('msg');
+            
+            // يمكنك تغيير الرمز الافتراضي هنا أو ربطه بـ API لاحقاً
+            const masterKey = "STUDIO2026"; 
+
+            if (codeInput === "") {
+                msg.innerHTML = "<span class='error'>Please enter an access key.</span>";
+                return;
+            }
+
+            if (codeInput.toUpperCase() === masterKey) {
+                msg.innerHTML = "<span class='success'>Access Granted. Transferring to Vault...</span>";
+                // هنا يتم توجيه العميل لداخل الاستوديو أو لوحة العرض
+                setTimeout(() => {
+                    alert('مرحباً بك في الخزنة الرقمية الحصرية!');
+                    // window.location.href = "/vault.html"; 
+                }, 1000);
+            } else {
+                msg.innerHTML = "<span class='error'>Invalid Key. Access Denied.</span>";
+                document.getElementById('studioCode').value = "";
+            }
+        }
+
+        // تفعيل زر Enter للإدخال السريع
+        document.getElementById('studioCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyAccess();
+            }
+        });
+    </script>
+
+</body>
+</html>
